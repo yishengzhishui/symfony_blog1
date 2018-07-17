@@ -9,6 +9,7 @@
                 <th>Id</th>
                 <th>Title</th>
                 <th>Description</th>
+                <th>user</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -18,6 +19,7 @@
                 <td><a href="{{ path('blog_show', { 'id': blog.id }) }}">{{ blog.id }}</a></td>
                 <td>{{ blog.title }}</td>
                 <td>{{ blog.description }}</td>
+                <td>{{ blog.user }}</td>
                 <td>
                     <ul>
                         <li>
