@@ -5,7 +5,8 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Blog;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Blog controller.
@@ -20,14 +21,16 @@ class BlogController extends Controller
      * @Route("/", name="blog_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $blogs = $em->getRepository('AppBundle:Blog')->findAll();
+        $qb = $em->getRepository('AppBundle:Blog')->createQueryBuilder('n');
+        $paginator = $this->get('knp_paginator');
+        $paginator = $paginator->paginate($qb, $request->query->getInt('page', 1),5);
 
         return $this->render('blog/index.html.twig', array(
-            'blogs' => $blogs,
+            'blogs' => $paginator,
         ));
     }
 
