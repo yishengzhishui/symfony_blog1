@@ -25,6 +25,16 @@ class Builder implements ContainerAwareInterface
             'label' => '群组'
         ]);
 
+        $menu->addChild('register', [
+            'route' => 'fos_user_registration_register',
+            'label' => '注册',
+        ]);
+
+        $menu->addChild('login', [
+            'route' => 'fos_user_security_login',
+            'label' => '登录',
+        ]);
+
         return $menu;
     }
 }
