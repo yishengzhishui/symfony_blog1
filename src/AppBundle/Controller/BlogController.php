@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 
 /**
  * Blog controller.
@@ -38,6 +40,7 @@ class BlogController extends Controller
      * Creates a new blog entity.
      *
      * @Route("/new", name="blog_new")
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
@@ -81,6 +84,7 @@ class BlogController extends Controller
      * Displays a form to edit an existing blog entity.
      *
      * @Route("/{id}/edit", name="blog_edit")
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Blog $blog)
@@ -106,6 +110,7 @@ class BlogController extends Controller
      * Deletes a blog entity.
      *
      * @Route("/{id}", name="blog_delete")
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Blog $blog)
