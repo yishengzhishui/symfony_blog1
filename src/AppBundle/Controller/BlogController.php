@@ -3,11 +3,12 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Blog;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 
 
 /**
@@ -27,7 +28,7 @@ class BlogController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $qb = $em->getRepository('AppBundle:Blog')->createQueryBuilder('n');
+        $qb = $em->getRepository('AppBundle:Blog')->createQueryBuilder('b');
         $paginator = $this->get('knp_paginator');
         $paginator = $paginator->paginate($qb, $request->query->getInt('page', 1),5);
 
@@ -40,7 +41,7 @@ class BlogController extends Controller
      * Creates a new blog entity.
      *
      * @Route("/new", name="blog_new")
-     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     * @IsGranted("ROLE_ADMIN")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
@@ -68,6 +69,7 @@ class BlogController extends Controller
      * Finds and displays a blog entity.
      *
      * @Route("/{id}", name="blog_show")
+     * @IsGranted("ROLE_USER")
      * @Method("GET")
      */
     public function showAction(Blog $blog)
@@ -84,7 +86,7 @@ class BlogController extends Controller
      * Displays a form to edit an existing blog entity.
      *
      * @Route("/{id}/edit", name="blog_edit")
-     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     * @IsGranted("ROLE_ADMIN")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Blog $blog)
@@ -110,7 +112,7 @@ class BlogController extends Controller
      * Deletes a blog entity.
      *
      * @Route("/{id}", name="blog_delete")
-     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     * @IsGranted("ROLE_ADMIN")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Blog $blog)

@@ -41,6 +41,7 @@ class Blog
      */
     private $user;
 
+
     /**
      * @return mixed
      */
@@ -56,7 +57,6 @@ class Blog
     {
         $this->user = $user;
     }
-
 
     /**
      * Get id
@@ -115,5 +115,7 @@ class Blog
     {
         return $this->description;
     }
+
+
 }
 
