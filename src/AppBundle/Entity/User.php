@@ -29,25 +29,6 @@ class User extends BaseUser
     /**
      * @return array
      */
-    public function getRoles()
-    {
-        $roles = $this->roles;
-
-        // guarantees that a user always has at least one role for security
-        if (empty($roles)) {
-            $roles[] = 'ROLE_USER';
-        }
-
-        return array_unique($roles);
-    }
-
-    /**
-     * @param array $roles
-     */
-    public function setRoles(array $roles)
-    {
-        $this->roles = $roles;
-    }
 
     /**
      * @return mixed
@@ -69,5 +50,6 @@ class User extends BaseUser
     {
         parent::__construct();
         $this->blogs = new ArrayCollection();
+        $this->addRole("ROLE_USER");
     }
 }
