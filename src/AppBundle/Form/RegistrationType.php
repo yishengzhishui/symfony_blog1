@@ -4,6 +4,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
@@ -20,6 +21,17 @@ class RegistrationType extends AbstractType
                     'User' => 'ROLE_USER',
                 ],
             ]);
+        $builder->get('roles')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($rolesAsArray) {
+                    return implode(', ', $rolesAsArray);
+                },
+                function ($rolesAsString) {
+                    // transform the string back to an array
+                    // 将字符串转回数组
+                    return explode(', ', $rolesAsString);
+                }
+            ));
     }
 
     public function getParent()
