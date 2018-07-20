@@ -36,7 +36,7 @@ class Blog
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="blog")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="blogs")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;

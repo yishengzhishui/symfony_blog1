@@ -14,7 +14,7 @@ class RegistrationType extends AbstractType
     {
         $builder
             ->add('roles', ChoiceType::class, [
-                'multiple' => true,
+                'multiple' => false,
                 'expanded' => true, // render check-boxes
                 'choices' => [
                     'Admin' => 'ROLE_ADMIN',
@@ -24,12 +24,10 @@ class RegistrationType extends AbstractType
         $builder->get('roles')
             ->addModelTransformer(new CallbackTransformer(
                 function ($rolesAsArray) {
-                    return implode(', ', $rolesAsArray);
+                    return $rolesAsArray[0];
                 },
                 function ($rolesAsString) {
-                    // transform the string back to an array
-                    // 将字符串转回数组
-                    return explode(', ', $rolesAsString);
+                    return [$rolesAsString];
                 }
             ));
     }

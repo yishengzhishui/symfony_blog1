@@ -41,7 +41,7 @@ class BlogController extends Controller
      * Creates a new blog entity.
      *
      * @Route("/new", name="blog_new")
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_USER")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
@@ -86,7 +86,7 @@ class BlogController extends Controller
      * Displays a form to edit an existing blog entity.
      *
      * @Route("/{id}/edit", name="blog_edit")
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_USER")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Blog $blog)
