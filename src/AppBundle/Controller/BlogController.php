@@ -56,6 +56,8 @@ class BlogController extends Controller
             $em->persist($blog);
             $em->flush();
 
+            $this->addFlash('success', 'blog.created_successfully');
+
             return $this->redirectToRoute('blog_show', array('id' => $blog->getId()));
         }
 
@@ -86,7 +88,7 @@ class BlogController extends Controller
      * Displays a form to edit an existing blog entity.
      *
      * @Route("/{id}/edit", name="blog_edit")
-     * @IsGranted("edit", subject="blog", message="Posts can only be edited by their authors.")
+     * @IsGranted("edit", subject="blog", message="Blogs can only be edited by their authors.")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Blog $blog)
@@ -97,6 +99,7 @@ class BlogController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'blog.updated_successfully');
 
             return $this->redirectToRoute('blog_edit', array('id' => $blog->getId()));
         }
@@ -112,7 +115,7 @@ class BlogController extends Controller
      * Deletes a blog entity.
      *
      * @Route("/{id}", name="blog_delete")
-     * @IsGranted("delete", subject="blog", message="Posts can only be deleted by their authors.")
+     * @IsGranted("delete", subject="blog", message="Blogs can only be deleted by their authors.")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Blog $blog)
