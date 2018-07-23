@@ -86,7 +86,7 @@ class BlogController extends Controller
      * Displays a form to edit an existing blog entity.
      *
      * @Route("/{id}/edit", name="blog_edit")
-     * @IsGranted("ROLE_USER")
+     * @IsGranted("edit", subject="blog", message="Posts can only be edited by their authors.")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Blog $blog)
@@ -112,7 +112,7 @@ class BlogController extends Controller
      * Deletes a blog entity.
      *
      * @Route("/{id}", name="blog_delete")
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("delete", subject="blog", message="Posts can only be deleted by their authors.")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Blog $blog)
