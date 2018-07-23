@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Blog
@@ -41,6 +42,11 @@ class Blog
      */
     private $user;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="blogs")
+     * @ORM\JoinTable(name="blogs_tags")
+     */
+    private $tags;
 
     /**
      * @return mixed
@@ -116,6 +122,24 @@ class Blog
         return $this->description;
     }
 
+    public function __construct() {
+        $this->tags = new ArrayCollection();
+    }
 
+    /**
+     * @return mixed
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param mixed $tags
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+    }
 }
 

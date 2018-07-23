@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Tag
@@ -28,6 +29,10 @@ class Tag
      */
     private $name;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Blog", mappedBy="tags")
+     */
+    private $blogs;
 
     /**
      * Get id
@@ -61,6 +66,10 @@ class Tag
     public function getName()
     {
         return $this->name;
+    }
+
+    public function __construct() {
+        $this->blogs = new ArrayCollection();
     }
 }
 
