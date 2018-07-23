@@ -43,7 +43,7 @@ class Blog
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="blogs")
+     * @ORM\ManyToMany(targetEntity="Tag", cascade={"persist"})
      * @ORM\JoinTable(name="blogs_tags")
      */
     private $tags;
@@ -140,6 +140,18 @@ class Blog
     public function setTags($tags)
     {
         $this->tags = $tags;
+    }
+
+    public function addTag(Tag $tag)
+    {
+        $tag->addBlog($this);
+
+        $this->tags->add($tag);
+    }
+
+    public function removeTag(Tag $tag)
+    {
+        $this->blogs->removeElement($tag);
     }
 }
 

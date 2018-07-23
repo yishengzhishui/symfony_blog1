@@ -20,6 +20,8 @@ class BlogType extends AbstractType
             ->add('tags', CollectionType::class, array(
                 'entry_type' => TagType::class,
                 'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
             ));
     }/**
      * {@inheritdoc}

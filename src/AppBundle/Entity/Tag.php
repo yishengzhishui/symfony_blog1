@@ -68,6 +68,13 @@ class Tag
         return $this->name;
     }
 
+    public function addBlog(Blog $blog)
+    {
+        if (!$this->blogs->contains($blog)) {
+            $this->blogs->add($blog);
+        }
+    }
+
     public function __construct() {
         $this->blogs = new ArrayCollection();
     }
