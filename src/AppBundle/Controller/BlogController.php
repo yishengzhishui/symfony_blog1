@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Blog;
+use AppBundle\Entity\Tag;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -47,12 +48,21 @@ class BlogController extends Controller
     public function newAction(Request $request)
     {
         $blog = new Blog();
+
+        $tag1 = new Tag();
+        $tag1->setName('tag1');
+        $blog->getTags()->add($tag1);
+        $tag2 = new Tag();
+        $tag2->setName('tag2');
+        $blog->getTags()->add($tag2);
+
         $form = $this->createForm('AppBundle\Form\BlogType', $blog);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $blog->setUser($this->getUser());
+
             $em->persist($blog);
             $em->flush();
 

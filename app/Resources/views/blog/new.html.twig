@@ -1,16 +1,30 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link href="{{ asset('css/main.css') }}" rel="stylesheet" />
+{% endblock %}
+
+
 
 {% block body %}
     <h1>Blog creation</h1>
-
     {{ form_start(form) }}
-        {{ form_widget(form) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.description) }}
+        <h3>Tags</h3>
+        <ul class="tags" data-prototype="{{ form_widget(form.tags.vars.prototype)|e }}">
+            {% for tag in form.tags %}
+                <li>{{ form_row(tag.name) }}</li>
+            {% endfor %}
+        </ul>
         <input type="submit" value="Create" />
     {{ form_end(form) }}
 
-    <ul>
+    <ul class="name">
         <li>
             <a href="{{ path('blog_index') }}">Back to the list</a>
         </li>
     </ul>
+    {% block javascripts %}
+        <script src="{{ asset('js/main.js') }}"></script>
+    {% endblock %}
 {% endblock %}
