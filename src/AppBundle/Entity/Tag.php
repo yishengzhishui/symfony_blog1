@@ -78,5 +78,21 @@ class Tag
     public function __construct() {
         $this->blogs = new ArrayCollection();
     }
+
+    /**
+     * @return mixed
+     */
+    public function getBlogs()
+    {
+        return $this->blogs;
+    }
+
+    /**
+     * @param mixed $blogs
+     */
+    public function setBlogs($blogs)
+    {
+        $this->blogs = $blogs;
+    }
 }
 

@@ -151,7 +151,7 @@ class Blog
 
     public function removeTag(Tag $tag)
     {
-        $this->blogs->removeElement($tag);
+        $this->tags->removeElement($tag);
     }
 }
 

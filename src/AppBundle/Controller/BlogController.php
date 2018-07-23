@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Blog;
 use AppBundle\Entity\Tag;
+use Doctrine\Common\Collections\ArrayCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -103,12 +104,29 @@ class BlogController extends Controller
      */
     public function editAction(Request $request, Blog $blog)
     {
+        $originalTags = new ArrayCollection();
+
+        // Create an ArrayCollection of the current Tag objects in the database
+        foreach ($blog->getTags() as $tag) {
+            $originalTags->add($tag);
+        }
+
         $deleteForm = $this->createDeleteForm($blog);
         $editForm = $this->createForm('AppBundle\Form\BlogType', $blog);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $em = $this->getDoctrine()->getManager();
+            // remove the relationship between the tag and the Task
+            foreach ($originalTags as $tag) {
+                if (false === $blog->getTags()->contains($tag)) {
+                    // remove the Task from the Tag
+                    $tag->getBlogs()->removeElement($blog);
+                    $em->persist($tag);
+                }
+            }
+            $em->persist($blog);
+            $em->flush();
             $this->addFlash('success', 'blog.updated_successfully');
 
             return $this->redirectToRoute('blog_edit', array('id' => $blog->getId()));
