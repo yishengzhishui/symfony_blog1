@@ -43,7 +43,7 @@ class Blog
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Tag", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="blogs", cascade={"persist"})
      * @ORM\JoinTable(name="blogs_tags")
      */
     private $tags;

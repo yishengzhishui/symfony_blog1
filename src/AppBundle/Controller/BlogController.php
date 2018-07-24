@@ -49,14 +49,6 @@ class BlogController extends Controller
     public function newAction(Request $request)
     {
         $blog = new Blog();
-
-        $tag1 = new Tag();
-        $tag1->setName('tag1');
-        $blog->getTags()->add($tag1);
-        $tag2 = new Tag();
-        $tag2->setName('tag2');
-        $blog->getTags()->add($tag2);
-
         $form = $this->createForm('AppBundle\Form\BlogType', $blog);
         $form->handleRequest($request);
 
