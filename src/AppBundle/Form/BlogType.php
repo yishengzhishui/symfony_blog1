@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use AppBundle\Form\Type\TagType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -22,7 +23,8 @@ class BlogType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
-            ));
+            ))
+            ->add('brochure', FileType::class, array('label' => 'Brochure (PDF file)'));
     }/**
      * {@inheritdoc}
      */

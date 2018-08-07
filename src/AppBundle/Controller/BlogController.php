@@ -56,6 +56,17 @@ class BlogController extends Controller
             $em = $this->getDoctrine()->getManager();
             $blog->setUser($this->getUser());
 
+            $file = $blog->getBrochure();
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            $file->move(
+                $this->getParameter('brochures_directory'),
+                $fileName
+            );
+
+            // Update the 'brochure' property to store the PDF file name
+            // instead of its contents
+            $blog->setBrochure($fileName);
+
             $em->persist($blog);
             $em->flush();
 

@@ -8,12 +8,14 @@
     {{ form_start(form) }}
         {{ form_row(form.title) }}
         {{ form_row(form.description) }}
+        {{ form_row(form.brochure) }}
         <h3>Tags</h3>
         <ul class="tags" data-prototype="{{ form_widget(form.tags.vars.prototype)|e }}">
             {% for tag in form.tags %}
                 <li>{{ form_row(tag.name) }}</li>
             {% endfor %}
         </ul>
+        {{ form_rest(form) }}
         <input type="submit" value="Create" />
     {{ form_end(form, {'render_rest': false}) }}
 

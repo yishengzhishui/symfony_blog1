@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Blog
@@ -47,6 +48,14 @@ class Blog
      * @ORM\JoinTable(name="blogs_tags")
      */
     private $tags;
+
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank(message="Please, upload the product brochure as a PDF file.")
+     * @Assert\File(mimeTypes={ "application/pdf" })
+     */
+    private $brochure;
 
     /**
      * @return mixed
@@ -152,6 +161,25 @@ class Blog
     public function removeTag(Tag $tag)
     {
         $this->tags->removeElement($tag);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBrochure()
+    {
+        return $this->brochure;
+    }
+
+    /**
+     * @param mixed $brochure
+     * @return Blog
+     */
+    public function setBrochure($brochure)
+    {
+        $this->brochure = $brochure;
+
+        return $this;
     }
 }
 
