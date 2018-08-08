@@ -57,11 +57,6 @@ class BlogController extends Controller
             $em = $this->getDoctrine()->getManager();
             $blog->setUser($this->getUser());
 
-            $file = $blog->getBrochure();
-            $fileName = $fileUploader->upload($file);
-
-            $blog->setBrochure($fileName);
-
             $em->persist($blog);
             $em->flush();
 

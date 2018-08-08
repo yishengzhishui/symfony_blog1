@@ -41,3 +41,8 @@ services:
     AppBundle\Service\FileUploader:
         arguments:
             $targetDirectory: '%brochures_directory%'
+
+    AppBundle\EventListener\BrochureUploadListener:
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
