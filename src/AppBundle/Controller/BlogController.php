@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Blog;
 use AppBundle\Entity\Tag;
+use AppBundle\Service\FileUploader;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -46,7 +47,7 @@ class BlogController extends Controller
      * @IsGranted("ROLE_USER")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, FileUploader $fileUploader)
     {
         $blog = new Blog();
         $form = $this->createForm('AppBundle\Form\BlogType', $blog);
@@ -57,14 +58,8 @@ class BlogController extends Controller
             $blog->setUser($this->getUser());
 
             $file = $blog->getBrochure();
-            $fileName = md5(uniqid()).'.'.$file->guessExtension();
-            $file->move(
-                $this->getParameter('brochures_directory'),
-                $fileName
-            );
+            $fileName = $fileUploader->upload($file);
 
-            // Update the 'brochure' property to store the PDF file name
-            // instead of its contents
             $blog->setBrochure($fileName);
 
             $em->persist($blog);
