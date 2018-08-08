@@ -24,7 +24,8 @@ class BlogType extends AbstractType
                 'allow_delete' => true,
                 'by_reference' => false,
             ))
-            ->add('brochure', FileType::class, array('label' => 'Brochure (PDF file)'));
+            ->add('brochure', FileType::class, array('label' => 'Brochure (PDF file)'))
+            ->add('photo', FileType::class, array('label' => 'Photo (png, jpeg)'));
     }/**
      * {@inheritdoc}
      */
