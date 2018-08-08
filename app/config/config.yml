@@ -83,6 +83,3 @@ fos_user:
 knp_paginator:
     template:
         pagination: '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig'
-
-vich_uploader:
-    db_driver: orm
