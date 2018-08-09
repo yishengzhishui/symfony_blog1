@@ -19,14 +19,13 @@ class BlogType extends AbstractType
         $builder->add('title')
             ->add('description')
             ->add('tags', CollectionType::class, array(
-                'data_class' => null,
-                'entry_type' => TagType::class, array('data_class' => null),
+                'entry_type' => TagType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
             ))
-            ->add('brochure', FileType::class, array('data_class' => null,'label' => 'Brochure (PDF file)'))
-            ->add('photo', FileType::class, array('data_class' => null,'label' => 'Photo (png, jpeg)'));
+            ->add('brochure', FileType::class, array('label' => 'Brochure (PDF file)'))
+            ->add('photo', FileType::class, array('label' => 'Photo (png, jpeg)'));
     }/**
      * {@inheritdoc}
      */
