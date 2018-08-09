@@ -9,7 +9,6 @@ parameters:
     locale: en
     brochures_directory: '%kernel.root_dir%/../web/uploads/brochures'
     photos_directory: '%kernel.root_dir%/../web/uploads/photos'
-    app.path.blog_images: /uploads/images/blogs
 
 framework:
     #esi: ~
@@ -106,6 +105,7 @@ easy_admin:
             list:
                 title: "All blogs"
                 fields: ['id', 'title',]
+
         Customer:
             class: AppBundle\Entity\User
             help: 'Global message displayed in all views'
@@ -113,17 +113,14 @@ easy_admin:
                 title: "Most Customers"
                 help: 'The list view overrides the global help message'
                 max_results: 4 # one page
+
         TAG:
             class: AppBundle\Entity\Tag
+
+
     site_name: "admin manager" #name of the backend
 
     design:
         brand_color: '#1ABC9C' # change the color
-
-vich_uploader:
-    db_driver: orm
-
-    mappings:
-        blog_images:
-            uri_prefix:         '%app.path.blog_images%'
-            upload_destination: '%kernel.root_dir%/../web%app.path.blog_images%'
+        assets:
+            favicon: '/assets/backend/favicon.png'
