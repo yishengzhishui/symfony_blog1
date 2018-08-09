@@ -9,4 +9,4 @@ _liip_imagine:
 easy_admin_bundle:
     resource: "@EasyAdminBundle/Controller/AdminController.php"
     type:     annotation
-    prefix:   /admin
+    prefix:   /admin  #can be changed

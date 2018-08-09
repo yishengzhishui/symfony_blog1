@@ -98,3 +98,9 @@ liip_imagine:
                 thumbnail: { size: [420, 390], mode: outbound }
                 background: { size: [424, 394], position: center, color: '#000000' }
 
+easy_admin:
+    entities:
+        - AppBundle\Entity\Blog
+        - AppBundle\Entity\User
+        - AppBundle\Entity\Tag
+    site_name: "admin manager" #name of the backend
