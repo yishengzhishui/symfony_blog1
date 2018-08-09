@@ -114,6 +114,9 @@ easy_admin:
                 help: 'The list view overrides the global help message'
                 max_results: 4 # one page
 
+        TAG:
+            class: AppBundle\Entity\Tag
+
 
     site_name: "admin manager" #name of the backend
 

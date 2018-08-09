@@ -20,7 +20,7 @@ class BlogType extends AbstractType
             ->add('description')
             ->add('tags', CollectionType::class, array(
                 'data_class' => null,
-                'entry_type' => TagType::class,
+                'entry_type' => TagType::class, array('data_class' => null),
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
