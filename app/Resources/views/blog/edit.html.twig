@@ -6,6 +6,7 @@
     {{ form_start(edit_form) }}
         {{ form_row(edit_form.title) }}
         {{ form_row(edit_form.description) }}
+        {{ form_row(edit_form.brochure) }}
         <h3>Tags</h3>
         <ul class="tags" data-prototype="{{ form_widget(edit_form.tags.vars.prototype)|e }}">
             {% for tag in edit_form.tags %}

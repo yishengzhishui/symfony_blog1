@@ -52,7 +52,6 @@ class Blog
 
     /**
      * @ORM\Column(type="string")
-     *
      * @Assert\NotBlank(message="Please, upload the product brochure as a PDF file.")
      * @Assert\File(mimeTypes={ "application/pdf" })
      */
