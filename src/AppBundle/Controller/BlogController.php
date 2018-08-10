@@ -119,6 +119,7 @@ class BlogController extends Controller
         $blog->setBrochure(
             new File($this->getParameter('brochures_directory').'/'.$blog->getBrochure())
         );
+       
 
         $editForm = $this->createForm('AppBundle\Form\BlogType', $blog);
         $editForm->handleRequest($request);
