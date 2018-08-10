@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 /**
  * Blog
  *
@@ -205,6 +206,11 @@ class Blog
     {
         $this->photo = $photo;
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 }
 
