@@ -48,7 +48,7 @@ class BlogController extends Controller
      * @IsGranted("ROLE_USER")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request, FileUploader $fileUploader)
+    public function newAction(Request $request)
     {
         $blog = new Blog();
         $form = $this->createForm('AppBundle\Form\BlogType', $blog);
@@ -57,6 +57,15 @@ class BlogController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $blog->setUser($this->getUser());
+
+            $file = $blog->getPhoto();
+            $fileName2 = md5(uniqid()).'.'.$file->guessExtension();
+            $file->move(
+                $this->getParameter('photos_directory'),
+                $fileName2
+            );
+
+            $blog->setPhoto($fileName2);
 
             $em->persist($blog);
             $em->flush();

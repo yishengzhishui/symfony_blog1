@@ -9,6 +9,7 @@
         {{ form_row(form.title) }}
         {{ form_row(form.description) }}
         {{ form_row(form.brochure) }}
+        {{ form_row(form.photo) }}
         <h3>Tags</h3>
         <ul class="tags" data-prototype="{{ form_widget(form.tags.vars.prototype)|e }}">
             {% for tag in form.tags %}

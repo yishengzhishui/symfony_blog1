@@ -57,6 +57,14 @@ class Blog
     private $brochure;
 
     /**
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank(message="Please, upload the photo.")
+     * @Assert\File(mimeTypes={ "image/png", "image/jpeg","image/jpg"})
+     */
+    private $photo;
+
+    /**
      * @return mixed
      */
     public function getUser()
@@ -178,6 +186,24 @@ class Blog
     {
         $this->brochure = $brochure;
 
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
+    /**
+     * @param mixed $photo
+     * @return Blog
+     */
+    public function setPhoto($photo)
+    {
+        $this->photo = $photo;
         return $this;
     }
 }

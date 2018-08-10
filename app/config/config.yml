@@ -8,6 +8,7 @@ imports:
 parameters:
     locale: en
     brochures_directory: '%kernel.root_dir%/../web/uploads/brochures'
+    photos_directory: '%kernel.root_dir%/../web/uploads/photos'
 
 framework:
     #esi: ~
@@ -83,3 +84,17 @@ fos_user:
 knp_paginator:
     template:
         pagination: '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig'
+
+liip_imagine:
+    resolvers:
+        default:
+            web_path: ~
+
+    filter_sets:
+        cache: ~
+        my_thumb:
+            quality: 75
+            filters:
+                thumbnail: { size: [420, 390], mode: outbound }
+                background: { size: [424, 394], position: center, color: '#000000' }
+
