@@ -22,47 +22,9 @@ class BlogType extends AbstractType
                 'entry_type' => TagType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'by_reference' => false,
-<<<<<<< HEAD
-<<<<<<< HEAD
-||||||| merged common ancestors
-<<<<<<<<< Temporary merge branch 1
-            ))
+                'by_reference' => false,))
             ->add('brochure', FileType::class, array('label' => 'Brochure (PDF file)'))
             ->add('photo', FileType::class, array('label' => 'Photo (png, jpeg)'));
-||||||||| merged common ancestors
-            ))
-            ->add('brochure', FileType::class, array('label' => 'Brochure (PDF file)'));
-=========
-=======
-
-            ))
-            ->add('brochure', FileType::class, array('label' => 'Brochure (PDF file)'))
-            ->add('photo', FileType::class, array('label' => 'Photo '));
-
->>>>>>> origin/master
-            ));
-
-<<<<<<< HEAD
-//        if ($options['data']->getId() == null) {
-            $builder->add('brochure', FileType::class, array('label' => 'Brochure (PDF file)'));
-//        }
-||||||| merged common ancestors
-            ))
-            ->add('brochure', FileType::class, array('label' => 'Brochure (PDF file)'));
-=======
-            ))
-            ->add('brochure', FileType::class, array('label' => 'Brochure (PDF file)'))
-            ->add('photo', FileType::class, array('label' => 'Photo (png, jpeg)'));
->>>>>>> n2
-||||||| merged common ancestors
-//        if ($options['data']->getId() == null) {
-            $builder->add('brochure', FileType::class, array('label' => 'Brochure (PDF file)'));
-//        }
->>>>>>>>> Temporary merge branch 2
-=======
-
->>>>>>> origin/master
     }/**
      * {@inheritdoc}
      */
