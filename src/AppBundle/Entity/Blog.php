@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 /**
  * Blog
  *
@@ -55,6 +56,14 @@ class Blog
      * @Assert\File(mimeTypes={ "application/pdf" })
      */
     private $brochure;
+
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank(message="Please, upload the photo.")
+     * @Assert\File(mimeTypes={ "image/png", "image/jpeg","image/jpg"})
+     */
+    private $photo;
 
     /**
      * @return mixed
@@ -179,6 +188,29 @@ class Blog
         $this->brochure = $brochure;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
+    /**
+     * @param mixed $photo
+     * @return Blog
+     */
+    public function setPhoto($photo)
+    {
+        $this->photo = $photo;
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 }
 
