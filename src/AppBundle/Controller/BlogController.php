@@ -58,14 +58,7 @@ class BlogController extends Controller
             $em = $this->getDoctrine()->getManager();
             $blog->setUser($this->getUser());
 
-            $file = $blog->getPhoto();
-            $fileName2 = md5(uniqid()).'.'.$file->guessExtension();
-            $file->move(
-                $this->getParameter('photos_directory'),
-                $fileName2
-            );
 
-            $blog->setPhoto($fileName2);
 
             $em->persist($blog);
             $em->flush();
@@ -116,9 +109,14 @@ class BlogController extends Controller
 
         $deleteForm = $this->createDeleteForm($blog);
 
-        $blog->setBrochure(
-            new File($this->getParameter('brochures_directory').'/'.$blog->getBrochure())
-        );
+//        $blog->setBrochure(
+//            new File($this->getParameter('brochures_directory').'/'.$blog->getBrochure())
+//        );
+
+//        dump($this->getParameter('photos_directory'),$blog->getPhoto());
+//        $blog->setPhoto(
+//            new File($this->getParameter('photos_directory').'/'.$blog->getPhoto())
+//        );
        
 
         $editForm = $this->createForm('AppBundle\Form\BlogType', $blog);

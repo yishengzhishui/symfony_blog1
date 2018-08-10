@@ -38,11 +38,15 @@ services:
         tags:
             - { name: form.type, alias: app_user_registration }
 
-    AppBundle\Service\FileUploader:
-        arguments:
-            $targetDirectory: '%brochures_directory%'
+#    AppBundle\Service\FileUploader:
+#        arguments:
+#            $targetDirectory: '%brochures_directory%'
 
     AppBundle\EventListener\BrochureUploadListener:
+        arguments:
+            $brochuresDirectory: '%brochures_directory%'
+            $photoDirectory: '%photos_directory%'
+
         tags:
             - { name: doctrine.event_listener, event: prePersist }
             - { name: doctrine.event_listener, event: preUpdate }

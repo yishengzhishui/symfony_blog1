@@ -51,7 +51,7 @@ class Blog
     private $tags;
 
     /**
-     * @ORM\Column(type="string")
+     *
      * @Assert\NotBlank(message="Please, upload the product brochure as a PDF file.")
      * @Assert\File(mimeTypes={ "application/pdf" })
      */
@@ -59,11 +59,24 @@ class Blog
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="Please, upload ")
      *
+     */
+    private $brochureName;
+
+    /**
      * @Assert\NotBlank(message="Please, upload the photo.")
      * @Assert\File(mimeTypes={ "image/png", "image/jpeg","image/jpg"})
      */
     private $photo;
+
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank(message="Please, upload ")
+     *
+     */
+    private $photoName;
 
     /**
      * @return mixed
@@ -205,12 +218,45 @@ class Blog
     public function setPhoto($photo)
     {
         $this->photo = $photo;
+        $this->setPhotoName($photo->getClientOriginalName());
         return $this;
     }
 
     public function __toString()
     {
         return $this->title;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPhotoName()
+    {
+        return $this->photoName;
+    }
+
+    /**
+     * @param mixed $photoName
+     */
+    public function setPhotoName($photoName)
+    {
+        $this->photoName = $photoName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBrochureName()
+    {
+        return $this->brochureName;
+    }
+
+    /**
+     * @param mixed $brochureName
+     */
+    public function setBrochureName($brochureName)
+    {
+        $this->brochureName = $brochureName;
     }
 }
 

@@ -2,6 +2,7 @@
 namespace AppBundle\EventListener;
 
 use AppBundle\Entity\Blog;
+use Doctrine\ORM\Event\PreFlushEventArgs;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
@@ -10,10 +11,14 @@ use AppBundle\Service\FileUploader;
 class BrochureUploadListener
 {
     private $uploader;
+    private $brochuresDirectory;
+    private $photoDirectory;
 
-    public function __construct(FileUploader $uploader)
+    public function __construct(FileUploader $uploader, $brochuresDirectory, $photoDirectory)
     {
         $this->uploader = $uploader;
+        $this->brochuresDirectory = $brochuresDirectory;
+        $this->photoDirectory = $photoDirectory;
     }
 
     public function prePersist(LifecycleEventArgs $args)
@@ -25,7 +30,9 @@ class BrochureUploadListener
 
     public function preUpdate(PreUpdateEventArgs $args)
     {
+
         $entity = $args->getEntity();
+        dump($entity);
 
         $this->uploadFile($entity);
     }
@@ -37,12 +44,19 @@ class BrochureUploadListener
             return;
         }
 
-        $file = $entity->getBrochure();
+        $filePdf = $entity->getBrochure();
+        $filePhoto = $entity->getPhoto();
+
 
         // only upload new files
-        if ($file instanceof UploadedFile) {
-            $fileName = $this->uploader->upload($file);
-            $entity->setBrochure($fileName);
+        if ($filePdf instanceof UploadedFile) {
+            $fileName = $this->uploader->upload($this->brochuresDirectory, $filePdf);
+            $entity->setBrochureName($fileName);
+        }
+
+        if ($filePhoto instanceof UploadedFile) {
+            $fileName = $this->uploader->upload($this->photoDirectory, $filePhoto);
+            $entity->setPhotoName($fileName);
         }
     }
 }

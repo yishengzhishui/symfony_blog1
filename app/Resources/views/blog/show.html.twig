@@ -19,17 +19,17 @@
             </tr>
             <tr>
                 <td>
-                    <a href="{{ asset('uploads/brochures/' ~ blog.brochure) }}">View brochure (PDF)</a>
+                    <a href="{{ asset('uploads/brochures/' ~ blog.brochureName) }}">View brochure (PDF)</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="{{ asset('uploads/photos/' ~ blog.photo) }}">View</a>
+                    <a href="{{ asset('uploads/photos/' ~ blog.photoName) }}">View</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <img src="{{ asset('uploads/photos/' ~ blog.photo) | imagine_filter('my_thumb') }}"/>
+                    <img src="{{ asset('uploads/photos/' ~ blog.photoName) | imagine_filter('my_thumb') }}"/>
                 </td>
             </tr>
         </tbody>

@@ -7,6 +7,13 @@
         {{ form_row(edit_form.title) }}
         {{ form_row(edit_form.description) }}
         {{ form_row(edit_form.brochure) }}
+
+        <a href="{{ asset('uploads/brochures/' ~ blog.brochureName) }}">View brochure (PDF)</a>
+        {{ form_row(edit_form.photo) }}
+
+        <img src="{{ asset('uploads/photos/' ~ blog.photoName)  }}"/>
+
+
         <h3>Tags</h3>
         <ul class="tags" data-prototype="{{ form_widget(edit_form.tags.vars.prototype)|e }}">
             {% for tag in edit_form.tags %}
