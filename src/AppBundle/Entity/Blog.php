@@ -52,7 +52,7 @@ class Blog
 
     /**
      *
-     * @Assert\NotBlank(message="Please, upload the product brochure as a PDF file.")
+     *
      * @Assert\File(mimeTypes={ "application/pdf" })
      */
     private $brochure;
@@ -65,7 +65,7 @@ class Blog
     private $brochureName;
 
     /**
-     * @Assert\NotBlank(message="Please, upload the photo.")
+     *
      * @Assert\File(mimeTypes={ "image/png", "image/jpeg","image/jpg"})
      */
     private $photo;
@@ -199,7 +199,7 @@ class Blog
     public function setBrochure($brochure)
     {
         $this->brochure = $brochure;
-
+        $this->setBrochureName($brochure->getClientOriginalName());
         return $this;
     }
 

@@ -32,7 +32,6 @@ class BrochureUploadListener
     {
 
         $entity = $args->getEntity();
-        dump($entity);
 
         $this->uploadFile($entity);
     }

@@ -134,6 +134,8 @@ class BlogController extends Controller
             }
             $em->persist($blog);
             $em->flush();
+
+
             $this->addFlash('success', 'blog.updated_successfully');
 
             return $this->redirectToRoute('blog_edit', array('id' => $blog->getId()));
