@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -105,6 +106,11 @@ class BlogController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($blog);
+
+        $blog->setBrochure(
+            new File($this->getParameter('brochures_directory').'/'.$blog->getBrochure())
+        );
+
         $editForm = $this->createForm('AppBundle\Form\BlogType', $blog);
         $editForm->handleRequest($request);
 
