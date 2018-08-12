@@ -94,5 +94,10 @@ class Tag
     {
         $this->blogs = $blogs;
     }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 }
 
