@@ -37,7 +37,7 @@ class BlogController extends Controller
             $form->submit($request->query->get($form->getName()));
 
             // initialize a query builder
-            $filterBuilder = $this->getRepository('AppBundle:Blog')->createQueryBuilder('b');
+            $filterBuilder = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Blog')->createQueryBuilder('b');
 
             // build the query from the given form object
             $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $filterBuilder);
