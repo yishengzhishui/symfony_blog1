@@ -37,8 +37,7 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
-    form_themes:
-        - LexikFormFilterBundle:Form:form_div_layout.html.twig
+
 
 # Doctrine Configuration
 doctrine:

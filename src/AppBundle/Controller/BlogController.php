@@ -4,7 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Blog;
 use AppBundle\Entity\Tag;
-use AppBundle\Service\FileUploader;
+use AppBundle\Form\Type\ItemFilterType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -22,6 +22,37 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class BlogController extends Controller
 {
+    /**
+     * Lists all blog entities.
+     *
+     * @Route("/test", name="blog_test")
+     * @Method("GET")
+     */
+    public function testFilterAction(Request $request)
+    {
+        $form = $this->get('form.factory')->create(ItemFilterType::class);
+
+        if ($request->query->has($form->getName())) {
+            // manually bind values from the request
+            $form->submit($request->query->get($form->getName()));
+
+            // initialize a query builder
+            $filterBuilder = $this->getRepository('AppBundle:Blog')->createQueryBuilder('b');
+
+            // build the query from the given form object
+            $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $filterBuilder);
+
+            // now look at the DQL =)
+
+            var_dump($filterBuilder->getDql());
+        }
+
+        return $this->render('blog/test.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
+
+
     /**
      * Lists all blog entities.
      *
