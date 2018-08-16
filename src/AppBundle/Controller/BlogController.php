@@ -46,13 +46,11 @@ class BlogController extends Controller
         }
 
         $query = $filterBuilder->getQuery();
-
+        dump($query);
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $query,
-            $request->query->get('page', 1)/*page number*/,
-            10/*limit per page*/
-        );
+            $request->query->get('page', 1),10);
 
         return $this->render('blog/test.html.twig', array(
             'form' => $form->createView(),
