@@ -22,7 +22,7 @@
 /vendor/
 /web/bundles/
 /web/output/*
-/web/upload/*
+/web/uploads/*
 /log
 /tmp
 .sass-cache
