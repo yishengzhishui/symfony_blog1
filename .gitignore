@@ -23,7 +23,7 @@
 /web/bundles/
 /web/output/*
 /web/uploads/*
-/web/media/cache/*
+/web/media/cache/
 /log
 /tmp
 .sass-cache
