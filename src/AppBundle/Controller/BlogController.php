@@ -30,25 +30,33 @@ class BlogController extends Controller
      */
     public function testFilterAction(Request $request)
     {
+        // initialize a query builder
+        $filterBuilder = $this->get('doctrine.orm.entity_manager')
+            ->getRepository('AppBundle:Blog')
+            ->createQueryBuilder('b');
+
         $form = $this->get('form.factory')->create(ItemFilterType::class);
 
         if ($request->query->has($form->getName())) {
             // manually bind values from the request
             $form->submit($request->query->get($form->getName()));
 
-            // initialize a query builder
-            $filterBuilder = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Blog')->createQueryBuilder('b');
-
             // build the query from the given form object
             $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $filterBuilder);
-
-            // now look at the DQL =)
-
-            var_dump($filterBuilder->getDql());
         }
+
+        $query = $filterBuilder->getQuery();
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->get('page', 1)/*page number*/,
+            10/*limit per page*/
+        );
 
         return $this->render('blog/test.html.twig', array(
             'form' => $form->createView(),
+            'blogs' => $pagination
         ));
     }
 

@@ -1,8 +1,52 @@
-{{ form_start(form, { 'method': 'get' }) }}
-<div class="search-box clearfix">
-    <div class="common-search-form clearfix">
-        {{ form_widget(form.title) }}
-        <input type="submit" value="検索" class="btn-s">
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ form_start(form, { 'method': 'get' }) }}
+    <div class="search-box clearfix">
+        <div class="common-search-form clearfix">
+            {{ form_widget(form.title) }}
+            <input type="submit" value="検索" class="btn-s">
+        </div>
     </div>
-</div>
-{{ form_end(form) }}
+    {{ form_end(form) }}
+
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>user</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for blog in blogs %}
+            <tr>
+                <td><a href="{{ path('blog_show', { 'id': blog.id }) }}">{{ blog.id }}</a></td>
+                <td>{{ blog.title }}</td>
+                <td>{{ blog.description }}</td>
+                <td>{{ blog.user }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('blog_show', { 'id': blog.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('blog_edit', { 'id': blog.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="4">
+                {{ knp_pagination_render(blogs) }}
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+
+{% endblock %}
