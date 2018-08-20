@@ -124,3 +124,6 @@ lexik_form_filter:
     listeners:
         doctrine_orm: true
     condition_pattern: text.starts
+
+vich_uploader:
+    db_driver: orm # or mongodb or propel or phpcr
