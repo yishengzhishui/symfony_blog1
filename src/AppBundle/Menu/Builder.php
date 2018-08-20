@@ -35,6 +35,11 @@ class Builder implements ContainerAwareInterface
             'label' => '登录',
         ]);
 
+        $menu->addChild('test', [
+           'route' => 'blog_test',
+           'label' => '搜索',
+        ]);
+
         return $menu;
     }
 }
