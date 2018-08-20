@@ -3,14 +3,12 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Blog;
-use AppBundle\Entity\Tag;
 use AppBundle\Form\Type\ItemFilterType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -46,7 +44,6 @@ class BlogController extends Controller
         }
 
         $query = $filterBuilder->getQuery();
-        dump($query);
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $query,
@@ -68,13 +65,12 @@ class BlogController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
         $qb = $em->getRepository('AppBundle:Blog')->createQueryBuilder('b');
         $paginator = $this->get('knp_paginator');
-        $paginator = $paginator->paginate($qb, $request->query->getInt('page', 1),5);
+        $pagination = $paginator->paginate($qb, $request->query->getInt('page', 1),5);
 
         return $this->render('blog/index.html.twig', array(
-            'blogs' => $paginator,
+            'blogs' => $pagination,
         ));
     }
 
@@ -94,12 +90,8 @@ class BlogController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $blog->setUser($this->getUser());
-
-
-
             $em->persist($blog);
             $em->flush();
-
             $this->addFlash('success', 'blog.created_successfully');
 
             return $this->redirectToRoute('blog_show', array('id' => $blog->getId()));
@@ -145,17 +137,6 @@ class BlogController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($blog);
-
-//        $blog->setBrochure(
-//            new File($this->getParameter('brochures_directory').'/'.$blog->getBrochure())
-//        );
-
-//        dump($this->getParameter('photos_directory'),$blog->getPhoto());
-//        $blog->setPhoto(
-//            new File($this->getParameter('photos_directory').'/'.$blog->getPhoto())
-//        );
-       
-
         $editForm = $this->createForm('AppBundle\Form\BlogType', $blog);
         $editForm->handleRequest($request);
 
@@ -171,7 +152,6 @@ class BlogController extends Controller
             }
             $em->persist($blog);
             $em->flush();
-
 
             $this->addFlash('success', 'blog.updated_successfully');
 
